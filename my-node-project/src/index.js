@@ -103,6 +103,8 @@ async function startServer() {
       connectTimeoutMS: 10000,
       // Node 22 + MongoDB Atlas TLS 이슈 대응 (IPv4/IPv6 자동 선택 비활성화)
       autoSelectFamily: false,
+      // 학습용: TLS 문제 우회를 위해 인증서 검증 완화 (실서비스에서는 사용 지양)
+      tlsAllowInvalidCertificates: true,
     });
     console.log('몽고디비 연결 성공');
 
