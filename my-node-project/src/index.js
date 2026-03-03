@@ -1,8 +1,11 @@
 require('dotenv').config();
 
 // MongoDB Atlas SRV 연결 시 Node.js DNS 해석 이슈 방지 (querySrv ECONNREFUSED 대응)
+// Render 같은 클라우드 환경에서는 기본 DNS를 사용하도록 분기
 const dns = require('node:dns');
-dns.setServers(['1.1.1.1', '8.8.8.8']);
+if (!process.env.RENDER) {
+  dns.setServers(['1.1.1.1', '8.8.8.8']);
+}
 
 const express = require('express');
 const path = require('path');
@@ -98,6 +101,8 @@ async function startServer() {
     const client = await MongoClient.connect(MONGO_URI, {
       serverSelectionTimeoutMS: 10000,
       connectTimeoutMS: 10000,
+      // Node 22 + MongoDB Atlas TLS 이슈 대응 (IPv4/IPv6 자동 선택 비활성화)
+      autoSelectFamily: false,
     });
     console.log('몽고디비 연결 성공');
 
