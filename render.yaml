@@ -1,0 +1,15 @@
+# Render Blueprint - https://docs.render.com/blueprint-spec
+# 배포: Render 대시보드에서 이 저장소 연결 후 "New Blueprint" 선택하거나,
+#       Web Service 수동 생성 시 Root Directory를 my-node-project 로 설정하세요.
+
+services:
+  - type: web
+    runtime: node
+    name: todo-backend
+    rootDir: my-node-project
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        sync: false   # 대시보드에서 MongoDB Atlas 연결 문자열 입력
