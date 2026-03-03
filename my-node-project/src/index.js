@@ -8,6 +8,7 @@ if (!process.env.RENDER) {
 }
 
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const { MongoClient, ObjectId } = require('mongodb');
 
@@ -21,6 +22,11 @@ if (!process.env.MONGO_URI) {
   console.warn('MONGO_URI 환경변수가 없습니다. 로컬 기본값을 사용합니다.');
 }
 
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
