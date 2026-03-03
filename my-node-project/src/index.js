@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 5000;
 
 // MongoDB 연결 URI (필요에 따라 환경변수로 빼서 사용 가능)
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todo-db';
+if (!process.env.MONGO_URI) {
+  console.warn('MONGO_URI 환경변수가 없습니다. 로컬 기본값을 사용합니다.');
+}
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
